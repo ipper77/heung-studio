@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>HEUNG STUDIO — Admin</title>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="config.js"></script>
+<style>
+:root{--ink:#171717;--muted:#777;--line:#e7e7e7;--paper:#faf9f6;--accent:#d7ff64}
+*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font-family:Arial,"Pretendard","Noto Sans KR",sans-serif;letter-spacing:-.025em}
+.wrap{width:min(1100px,calc(100% - 36px));margin:auto}header{border-bottom:1px solid var(--line);padding:22px 0}.top{display:flex;align-items:center;justify-content:space-between}.logo{font-size:20px;font-weight:900;letter-spacing:-.07em;text-decoration:none;color:inherit}.back{color:inherit;text-decoration:none;font-size:13px}
+main{padding:48px 0 80px}.eyebrow{font-size:11px;letter-spacing:.13em;color:var(--muted);font-weight:700;text-transform:uppercase}h1{font-size:clamp(34px,5vw,56px);letter-spacing:-.07em;margin:12px 0}p{color:#666;line-height:1.7}.panel{background:#fff;border:1px solid var(--line);padding:24px;margin:26px 0}.panel h2{margin:0 0 20px;font-size:20px}.grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}.field{display:flex;flex-direction:column;gap:8px;margin-bottom:16px}.field label{font-size:13px;font-weight:700}.field input,.field select,.field textarea{width:100%;padding:12px;border:1px solid #d8d8d8;border-radius:4px;font:inherit;background:#fff}.field textarea{min-height:90px;resize:vertical}.btn{border:0;padding:12px 17px;background:var(--ink);color:white;font:inherit;font-size:13px;font-weight:700;cursor:pointer}.btn.secondary{background:#eee;color:#171717}.btn.danger{background:#a82d2d}.btn:disabled{opacity:.45;cursor:not-allowed}.notice{padding:12px 14px;background:#f1f1eb;margin:14px 0;font-size:13px;line-height:1.6}.hidden{display:none!important}.preview{width:100%;max-height:250px;object-fit:contain;background:#f2f2f2;display:block;margin:10px 0}.list{display:grid;gap:12px}.item{display:grid;grid-template-columns:100px 1fr auto;gap:16px;align-items:center;padding:12px;border:1px solid var(--line);background:#fff}.thumb{width:100px;height:80px;background:#eee;object-fit:cover}.item-title{font-weight:700}.meta{font-size:12px;color:#777;margin-top:5px}.actions{display:flex;gap:8px;flex-wrap:wrap}.small{font-size:12px;color:#777}.login-box{max-width:460px}.row-actions{display:flex;gap:10px;flex-wrap:wrap}@media(max-width:680px){.grid{grid-template-columns:1fr}.item{grid-template-columns:72px 1fr}.thumb{width:72px;height:72px}.actions{grid-column:1/-1}.panel{padding:17px}}
+</style>
+</head>
+<body>
+<header><div class="wrap top"><a class="logo" href="index.html">HEUNG STUDIO<span style="display:inline-block;width:7px;height:7px;border-radius:50%;background:#171717;margin-left:3px"></span></a><a class="back" href="index.html">← 홈페이지 보기</a></div></header>
+<main class="wrap">
+ <div class="eyebrow">Website management</div><h1>Design Work Admin</h1>
+ <p>프로젝트 이미지와 제목, 카테고리를 관리합니다. 저장된 변경 사항은 홈페이지의 Design Work에 반영됩니다.</p>
+ <div id="setupNotice" class="notice">연결 설정을 확인하는 중입니다…</div>
+ <section id="loginPanel" class="panel login-box hidden">
+  <h2>관리자 로그인</h2>
+  <div class="field"><label for="email">관리자 이메일</label><input id="email" type="email" autocomplete="username" placeholder="관리자 이메일"></div>
+  <div class="field"><label for="password">비밀번호</label><input id="password" type="password" autocomplete="current-password" placeholder="비밀번호"></div>
+  <button id="loginBtn" class="btn">로그인</button><div id="loginMsg" class="small" style="margin-top:12px"></div>
+ </section>
+ <section id="dashboard" class="hidden">
+  <div class="panel">
+   <div class="top"><h2 id="formTitle">새 프로젝트 등록</h2><button id="logoutBtn" class="btn secondary">로그아웃</button></div>
+   <form id="projectForm">
+    <input type="hidden" id="projectId">
+    <div class="grid">
+     <div class="field"><label for="title">프로젝트 제목 *</label><input id="title" required placeholder="예: SOVEN — Fragrance Collection"></div>
+     <div class="field"><label for="year">연도</label><input id="year" placeholder="2026" maxlength="4"></div>
+     <div class="field"><label for="category">카테고리 *</label><select id="category" required><option value="identity">Brand Identity</option><option value="graphic">Graphic</option><option value="package">Package</option><option value="digital">Digital</option></select></div>
+     <div class="field"><label for="meta">설명 / 세부 분야</label><input id="meta" placeholder="PACKAGING · ARTWORK"></div>
+    </div>
+    <div class="field"><label for="image">작품 이미지</label><input id="image" type="file" accept="image/png,image/jpeg,image/webp"><div class="small">JPG, PNG, WebP 권장. 가로 1600px 이상, 파일 8MB 이하 권장.</div><img id="preview" class="preview hidden" alt="이미지 미리보기"></div>
+    <div class="row-actions"><button id="saveBtn" class="btn" type="submit">저장하기</button><button id="resetBtn" class="btn secondary" type="button">새 프로젝트로 초기화</button></div>
+    <div id="formMsg" class="small" style="margin-top:12px"></div>
+   </form>
+  </div>
+  <div class="panel"><h2>등록된 프로젝트</h2><div id="projectList" class="list"></div><div id="listMsg" class="small" style="margin-top:12px"></div></div>
+ </section>
+</main>
+<script>
+let client=null, currentImageUrl='', editingImagePath='';
+const $=id=>document.getElementById(id);
+const setupNotice=$('setupNotice');
+function setMsg(id,msg){$(id).textContent=msg;}
+function resetForm(){
+ $('projectForm').reset();$('projectId').value='';currentImageUrl='';editingImagePath='';
+ $('preview').src='';$('preview').classList.add('hidden');$('formTitle').textContent='새 프로젝트 등록';$('saveBtn').textContent='저장하기';setMsg('formMsg','');
+}
+$('image').addEventListener('change',()=>{
+ const file=$('image').files[0];if(!file)return;
+ if(!file.type.startsWith('image/')){setMsg('formMsg','이미지 파일을 선택해 주세요.');return;}
+ if(file.size>8*1024*1024){setMsg('formMsg','파일이 8MB를 초과합니다. 더 작은 이미지로 다시 선택해 주세요.');$('image').value='';return;}
+ $('preview').src=URL.createObjectURL(file);$('preview').classList.remove('hidden');
+});
+$('resetBtn').addEventListener('click',resetForm);
+$('loginBtn').addEventListener('click',async()=>{
+ setMsg('loginMsg','로그인 중…');
+ const {error}=await client.auth.signInWithPassword({email:$('email').value.trim(),password:$('password').value});
+ if(error){setMsg('loginMsg','로그인 실패: '+error.message);return;}
+ setMsg('loginMsg','');await showDashboard();
+});
+$('logoutBtn').addEventListener('click',async()=>{await client.auth.signOut();$('dashboard').classList.add('hidden');$('loginPanel').classList.remove('hidden');setMsg('loginMsg','로그아웃했습니다.');});
+$('projectForm').addEventListener('submit',async e=>{
+ e.preventDefault();$('saveBtn').disabled=true;setMsg('formMsg','저장 중…');
+ try{
+  const id=$('projectId').value || crypto.randomUUID();
+  const oldPath=editingImagePath;
+  let imageUrl=currentImageUrl, imagePath=oldPath;
+  const file=$('image').files[0];
+  if(file){
+   const ext=(file.name.split('.').pop()||'jpg').toLowerCase().replace(/[^a-z0-9]/g,'')||'jpg';
+   imagePath=`${id}/${Date.now()}.${ext}`;
+   const {error:uploadError}=await client.storage.from('project-images').upload(imagePath,file,{upsert:true,contentType:file.type});
+   if(uploadError)throw uploadError;
+   const {data}=client.storage.from('project-images').getPublicUrl(imagePath);imageUrl=data.publicUrl;
+  }
+  const payload={id,title:$('title').value.trim(),category:$('category').value,meta:$('meta').value.trim(),year:$('year').value.trim(),image_url:imageUrl||null,image_path:imagePath||null,sort_order:Date.now()};
+  const {error}=await client.from('projects').upsert(payload);
+  if(error)throw error;
+  if(file && oldPath && oldPath!==imagePath){await client.storage.from('project-images').remove([oldPath]);}
+  setMsg('formMsg','저장했습니다. 홈페이지를 새로고침하면 변경 사항이 표시됩니다.');
+  resetForm();await loadList();
+ }catch(err){setMsg('formMsg','저장하지 못했습니다: '+err.message);}
+ finally{$('saveBtn').disabled=false;}
+});
+async function loadList(){
+ $('projectList').innerHTML='';setMsg('listMsg','불러오는 중…');
+ const {data,error}=await client.from('projects').select('*').order('sort_order',{ascending:true}).order('created_at',{ascending:false});
+ if(error){setMsg('listMsg','목록을 불러오지 못했습니다: '+error.message);return;}
+ if(!data.length){setMsg('listMsg','등록된 프로젝트가 없습니다. 위에서 첫 작품을 등록해 주세요.');return;}
+ setMsg('listMsg',`${data.length}개 프로젝트`);
+ data.forEach(p=>{
+  const item=document.createElement('div');item.className='item';
+  const thumb=document.createElement('img');thumb.className='thumb';thumb.alt='';thumb.src=p.image_url||'';
+  const info=document.createElement('div');const title=document.createElement('div');title.className='item-title';title.textContent=p.title;
+  const meta=document.createElement('div');meta.className='meta';meta.textContent=`${p.category} · ${p.year||''} · ${p.meta||''}`;
+  info.append(title,meta);
+  const actions=document.createElement('div');actions.className='actions';
+  const edit=document.createElement('button');edit.className='btn secondary';edit.textContent='수정';edit.onclick=()=>editProject(p);
+  const del=document.createElement('button');del.className='btn danger';del.textContent='삭제';del.onclick=()=>deleteProject(p);
+  actions.append(edit,del);item.append(thumb,info,actions);$('projectList').append(item);
+ });
+}
+function editProject(p){
+ $('projectId').value=p.id;$('title').value=p.title||'';$('year').value=p.year||'';$('category').value=p.category||'graphic';$('meta').value=p.meta||'';
+ currentImageUrl=p.image_url||'';editingImagePath=p.image_path||'';
+ $('image').value='';$('formTitle').textContent='프로젝트 수정';$('saveBtn').textContent='수정 내용 저장';
+ if(currentImageUrl){$('preview').src=currentImageUrl;$('preview').classList.remove('hidden')}else $('preview').classList.add('hidden');
+ window.scrollTo({top:0,behavior:'smooth'});
+}
+async function deleteProject(p){
+ if(!confirm(`"${p.title}" 프로젝트를 삭제할까요?`))return;
+ const {error}=await client.from('projects').delete().eq('id',p.id);
+ if(error){setMsg('listMsg','삭제 실패: '+error.message);return;}
+ if(p.image_path)await client.storage.from('project-images').remove([p.image_path]);
+ setMsg('listMsg','삭제했습니다.');await loadList();
+}
+async function showDashboard(){
+ $('loginPanel').classList.add('hidden');$('dashboard').classList.remove('hidden');setupNotice.classList.add('hidden');await loadList();
+}
+(async()=>{
+ if(!window.HEUNG_SUPABASE_URL||!window.HEUNG_SUPABASE_ANON_KEY||!window.supabase){
+  setupNotice.innerHTML='<strong>먼저 온라인 저장소 연결이 필요합니다.</strong><br>압축파일의 README.txt에 적힌 Supabase 설정을 완료하고 config.js에 프로젝트 URL과 공개 anon key를 입력해 주세요. 아직 연결하지 않았다면 관리자 로그인과 저장 기능은 작동하지 않습니다.';
+  $('loginPanel').classList.remove('hidden');$('loginBtn').disabled=true;return;
+ }
+ client=window.supabase.createClient(window.HEUNG_SUPABASE_URL,window.HEUNG_SUPABASE_ANON_KEY);
+ setupNotice.textContent='연결 준비 완료. 관리자 계정으로 로그인하세요.';
+ const {data:{session}}=await client.auth.getSession();
+ if(session)await showDashboard();else $('loginPanel').classList.remove('hidden');
+})();
+</script>
+</body></html>

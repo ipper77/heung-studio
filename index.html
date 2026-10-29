@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="브랜드의 본질을 발견하고, 명확한 디자인으로 연결하는 디자인 스튜디오입니다.">
+<title>HEUNG STUDIO — Design with Purpose</title>
+<style>
+:root{--ink:#171717;--muted:#777;--line:#e7e7e7;--paper:#faf9f6;--accent:#d7ff64;--max:1280px}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--paper);color:var(--ink);font-family:Arial,"Pretendard","Noto Sans KR",sans-serif;letter-spacing:-.035em}a{color:inherit;text-decoration:none}button{font:inherit}.wrap{width:min(var(--max),calc(100% - 64px));margin:auto}
+header{height:84px;display:flex;align-items:center;border-bottom:1px solid var(--line);position:sticky;top:0;background:rgba(250,249,246,.92);backdrop-filter:blur(14px);z-index:10}.nav{display:flex;align-items:center;justify-content:space-between;width:100%}.logo{font-size:21px;font-weight:900;letter-spacing:-.07em}.logo span{display:inline-block;width:8px;height:8px;background:var(--ink);border-radius:50%;margin-left:3px}.navlinks{display:flex;gap:34px;font-size:13px;font-weight:600}.navlinks a:hover,.textlink:hover{opacity:.55}.menu-btn{display:none;border:0;background:none;font-size:25px;cursor:pointer}
+.hero{padding:110px 0 92px}.eyebrow{font-size:11px;letter-spacing:.14em;text-transform:uppercase;font-weight:700;color:var(--muted)}h1{font-size:clamp(54px,9vw,126px);line-height:.92;letter-spacing:-.085em;margin:28px 0 30px;font-weight:800}.hero-row{display:flex;align-items:flex-end;justify-content:space-between;gap:36px}.hero-copy{font-size:17px;line-height:1.8;color:#555;max-width:470px}.pill{display:inline-flex;align-items:center;gap:18px;background:var(--accent);padding:16px 20px;border-radius:999px;font-size:13px;font-weight:700;transition:transform .2s}.pill:hover{transform:translateY(-3px)}.arrow{font-size:18px}
+.hero-art{margin-top:74px;min-height:300px;background:#e8e8e2;display:grid;grid-template-columns:1.1fr .9fr;overflow:hidden;position:relative}.art-left{padding:42px;display:flex;flex-direction:column;justify-content:space-between}.art-kicker{font-size:11px;letter-spacing:.13em}.art-big{font-size:clamp(40px,7vw,92px);line-height:.88;letter-spacing:-.09em;font-weight:800}.art-right{background:var(--accent);display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}.orb{width:min(25vw,270px);aspect-ratio:1;border-radius:50%;background:var(--ink);position:relative}.orb:before,.orb:after{content:"";position:absolute;border:1px solid var(--accent);border-radius:50%;inset:14% -16%}.orb:after{inset:-16% 14%}.orb-label{position:absolute;bottom:24px;right:28px;font-size:10px;letter-spacing:.12em}
+.section{padding:100px 0;border-top:1px solid var(--line)}.section-head{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;margin-bottom:42px}.section h2{font-size:clamp(36px,5vw,64px);line-height:1;letter-spacing:-.075em;margin:14px 0 0}.section-note{font-size:13px;line-height:1.7;color:var(--muted);max-width:260px}
+.filters{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:28px}.filter{border:1px solid #d8d8d2;background:transparent;border-radius:99px;padding:10px 16px;font-size:12px;cursor:pointer}.filter.active,.filter:hover{background:var(--ink);color:white;border-color:var(--ink)}
+.projects{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:38px 22px}.project[hidden]{display:none}.project-visual{aspect-ratio:1.32;background:#e8e5de;display:flex;align-items:center;justify-content:center;overflow:hidden;position:relative}.project-visual .shape{width:58%;height:66%;background:#d7ff64;display:flex;align-items:center;justify-content:center;font-size:clamp(22px,4vw,52px);font-weight:900;letter-spacing:-.09em;transition:transform .45s}.project:nth-child(2) .project-visual{background:#d7dce0}.project:nth-child(2) .shape{background:#292929;color:#fff;width:52%;height:76%;border-radius:160px 160px 8px 8px}.project:nth-child(3) .project-visual{background:#d8c5b5}.project:nth-child(3) .shape{background:#f6eee1;transform:rotate(-8deg);box-shadow:14px 14px 0 #8b604c}.project:nth-child(4) .project-visual{background:#e1e5d9}.project:nth-child(4) .shape{background:#6c7c58;color:white;border-radius:50%;width:58%;height:auto;aspect-ratio:1}.project:nth-child(5) .project-visual{background:#e9dce5}.project:nth-child(5) .shape{background:#cda4c0;color:#3d2637;transform:rotate(8deg)}.project:nth-child(6) .project-visual{background:#d9d8d0}.project:nth-child(6) .shape{background:#faf9f6;border:1px solid #222;color:#222;border-radius:50%;width:58%;height:auto;aspect-ratio:1}.project-visual:hover .shape{transform:scale(1.06) rotate(0)}.project-info{display:flex;justify-content:space-between;gap:16px;padding-top:15px}.project-title{font-size:18px;font-weight:700}.project-meta{font-size:11px;color:var(--muted);margin-top:7px}.project-year{font-size:12px;color:var(--muted)}
+.about{background:var(--ink);color:#f7f7f2;padding:90px 0}.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:end}.about h2{font-size:clamp(42px,6vw,78px);line-height:.98;letter-spacing:-.08em;margin:20px 0 0}.about p{color:#b8b8b2;line-height:1.9;font-size:15px;max-width:470px;margin:0 0 24px}.about .eyebrow{color:#aaa}.about .pill{color:var(--ink)}
+.faq-list{border-top:1px solid var(--line)}.faq-item{border-bottom:1px solid var(--line)}.faq-q{width:100%;display:flex;justify-content:space-between;align-items:center;gap:20px;text-align:left;padding:24px 0;background:none;border:0;cursor:pointer;font-size:17px;font-weight:650}.faq-q span:last-child{font-size:24px;font-weight:300;transition:transform .2s}.faq-a{display:none;padding:0 42px 24px 0;max-width:760px;color:var(--muted);font-size:14px;line-height:1.9}.faq-item.open .faq-a{display:block}.faq-item.open .faq-q span:last-child{transform:rotate(45deg)}
+.contact{background:var(--accent);padding:78px 0}.contact-row{display:flex;justify-content:space-between;align-items:flex-end;gap:30px}.contact h2{font-size:clamp(40px,6vw,76px);line-height:.98;letter-spacing:-.08em;margin:18px 0 0}.contact p{font-size:14px;line-height:1.7;max-width:300px}.contact .pill{background:var(--ink);color:white;white-space:nowrap}
+footer{padding:30px 0 24px;background:var(--paper)}.footer-top{display:flex;justify-content:space-between;gap:24px;align-items:center;padding-bottom:30px}.footer-links{display:flex;gap:22px;font-size:12px}.footer-bottom{border-top:1px solid var(--line);padding-top:18px;display:flex;justify-content:space-between;gap:20px;color:var(--muted);font-size:10px;letter-spacing:.04em}
+@media(max-width:720px){.wrap{width:calc(100% - 40px)}header{height:70px}.menu-btn{display:block}.navlinks{display:none;position:absolute;top:69px;left:0;right:0;background:var(--paper);padding:24px 20px 28px;border-bottom:1px solid var(--line);flex-direction:column;gap:22px}.navlinks.show{display:flex}.hero{padding:76px 0 64px}h1{font-size:clamp(52px,15vw,90px)}.hero-row,.section-head,.contact-row{align-items:flex-start;flex-direction:column}.hero-copy{font-size:15px}.hero-art{margin-top:48px;min-height:230px;grid-template-columns:1fr}.art-left{min-height:200px;padding:24px}.art-right{min-height:210px}.orb{width:150px}.orb-label{bottom:15px;right:15px}.section{padding:72px 0}.section-note{max-width:100%}.projects{grid-template-columns:1fr;gap:28px}.project-visual{aspect-ratio:1.15}.about{padding:70px 0}.about-grid{grid-template-columns:1fr;gap:28px}.faq-q{font-size:15px;padding:20px 0}.contact{padding:64px 0}.footer-top,.footer-bottom{align-items:flex-start;flex-direction:column}.footer-links{flex-wrap:wrap;gap:16px}.footer-bottom{gap:10px}}
+
+.project-visual { position:relative; overflow:hidden; }
+.project-visual img { width:100%; height:100%; object-fit:cover; display:block; position:absolute; inset:0; }
+.project-visual.has-image .shape { display:none; }
+.project-visual .shape { position:relative; z-index:1; }
+.admin-link { position:fixed; right:16px; bottom:16px; z-index:20; background:#171717; color:#fff; padding:10px 14px; border-radius:999px; font-size:12px; opacity:.78; }
+.admin-link:hover { opacity:1; }
+@media (max-width:600px) { .admin-link { right:10px; bottom:10px; } }
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap nav">
+    <a class="logo" href="#home" aria-label="HEUNG STUDIO 홈">HEUNG STUDIO<span></span></a>
+    <button class="menu-btn" aria-label="메뉴 열기" aria-expanded="false">☰</button>
+    <nav class="navlinks" aria-label="주 메뉴">
+      <a href="#work">WORK</a><a href="#about">ABOUT</a><a href="#faq">Q&A</a><a href="#contact">CONTACT ↗</a>
+    </nav>
+  </div>
+</header>
+<main id="home">
+  <section class="hero wrap">
+    <div class="eyebrow">Independent Creative Studio · Seoul, Korea</div>
+    <h1>Design that<br>makes sense.</h1>
+    <div class="hero-row">
+      <p class="hero-copy">브랜드의 본질을 발견하고, 명확한 아이디어와 감각적인 디자인으로 연결합니다. 전략부터 결과물까지, 오래 기억되는 디자인을 만듭니다.</p>
+      <a class="pill" href="#work">SELECTED WORK <span class="arrow">↘</span></a>
+    </div>
+    <div class="hero-art" aria-label="스튜디오 디자인 그래픽">
+      <div class="art-left"><div class="art-kicker">STRATEGY / IDENTITY / EXPERIENCE</div><div class="art-big">Make it<br>meaningful.</div></div>
+      <div class="art-right"><div class="orb"></div><div class="orb-label">IDEAS INTO FORM — 2026</div></div>
+    </div>
+  </section>
+
+  <section class="section" id="work">
+    <div class="wrap">
+      <div class="section-head"><div><div class="eyebrow">01 / Selected projects</div><h2>Design Work</h2></div><p class="section-note">다양한 분야의 프로젝트를 통해<br>브랜드가 가진 가능성을 시각화합니다.</p></div>
+      <div class="filters" role="group" aria-label="작업 카테고리 필터">
+        <button class="filter active" data-filter="all">All Work</button><button class="filter" data-filter="identity">Brand Identity</button><button class="filter" data-filter="graphic">Graphic</button><button class="filter" data-filter="package">Package</button><button class="filter" data-filter="digital">Digital</button>
+      </div>
+      <div class="projects" id="projects-grid" aria-live="polite"></div>
+    </div>
+  </section>
+
+  <section class="about" id="about"><div class="wrap about-grid"><div><div class="eyebrow">02 / About us</div><h2>Good design.<br>Clear purpose.</h2></div><div><p>흥 스튜디오는 브랜드가 전하고 싶은 이야기를 발견하고, 사람들에게 자연스럽게 닿을 수 있는 시각 언어로 만듭니다. 브랜드 아이덴티티부터 패키지, 편집, 디지털 디자인까지 일관된 관점으로 함께합니다.</p><a class="pill" href="#contact">LET'S WORK TOGETHER <span class="arrow">↗</span></a></div></div></section>
+
+  <section class="section" id="faq"><div class="wrap"><div class="section-head"><div><div class="eyebrow">03 / Questions & answers</div><h2>Q&A</h2></div><p class="section-note">프로젝트 진행 전 자주 문의하시는<br>내용을 확인해 주세요.</p></div>
+    <div class="faq-list">
+      <div class="faq-item"><button class="faq-q" aria-expanded="false"><span>어떤 디자인 서비스를 제공하나요?</span><span>＋</span></button><div class="faq-a">브랜드 전략 및 아이덴티티, 로고, 패키지, 편집·인쇄물, 그래픽, 웹사이트 디자인 등 브랜드에 필요한 시각 디자인을 폭넓게 진행합니다.</div></div>
+      <div class="faq-item"><button class="faq-q" aria-expanded="false"><span>프로젝트는 어떻게 시작하나요?</span><span>＋</span></button><div class="faq-a">문의 내용을 확인한 뒤 미팅 또는 상담을 통해 목표와 범위를 정리합니다. 이후 제안서와 견적을 전달하고, 일정 및 계약이 확정되면 프로젝트를 시작합니다.</div></div>
+      <div class="faq-item"><button class="faq-q" aria-expanded="false"><span>작업 기간은 얼마나 걸리나요?</span><span>＋</span></button><div class="faq-a">작업 범위와 자료 준비 상황에 따라 달라집니다. 간단한 그래픽 작업부터 브랜드 개발까지 일정이 다르므로 문의 시 희망 일정과 프로젝트 내용을 알려주세요.</div></div>
+      <div class="faq-item"><button class="faq-q" aria-expanded="false"><span>견적은 어떻게 받을 수 있나요?</span><span>＋</span></button><div class="faq-a">프로젝트 목적, 필요한 결과물, 수량 및 일정 등을 보내주시면 검토 후 맞춤 견적을 안내해 드립니다.</div></div>
+    </div>
+  </div></section>
+
+  <section class="contact" id="contact"><div class="wrap contact-row"><div><div class="eyebrow">Have a project in mind?</div><h2>Let's make<br>something good.</h2></div><div><p>새로운 프로젝트를 준비 중이신가요?<br>편하게 이야기를 들려주세요.</p><a class="pill" href="mailto:hello@heungstudio.kr">START A PROJECT <span class="arrow">↗</span></a></div></div></section>
+</main>
+<footer><div class="wrap"><div class="footer-top"><a class="logo" href="#home">HEUNG STUDIO<span></span></a><div class="footer-links"><a href="#work">Work</a><a href="#about">About</a><a href="#faq">Q&A</a><a href="mailto:hello@heungstudio.kr">Email ↗</a></div></div><div class="footer-bottom"><span>© 2026 HEUNG STUDIO. ALL RIGHTS RESERVED.</span><span>DESIGN WITH PURPOSE.</span></div></div></footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="config.js"></script>
+<script>
+const menuBtn=document.querySelector('.menu-btn'),nav=document.querySelector('.navlinks');
+menuBtn.addEventListener('click',()=>{const open=nav.classList.toggle('show');menuBtn.setAttribute('aria-expanded',open);menuBtn.textContent=open?'×':'☰';});
+nav.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{nav.classList.remove('show');menuBtn.setAttribute('aria-expanded','false');menuBtn.textContent='☰';}));
+document.querySelectorAll('.faq-q').forEach(btn=>btn.addEventListener('click',()=>{const item=btn.closest('.faq-item');const open=item.classList.toggle('open');btn.setAttribute('aria-expanded',open);}));
+
+const fallbackProjects = [
+ {title:'Morrow — Brand Identity',category:'identity',meta:'BRAND STRATEGY · VISUAL IDENTITY',year:'2026',label:'MORROW®'},
+ {title:'Onda — Packaging',category:'package',meta:'PACKAGING · ART DIRECTION',year:'2026',label:'onda.'},
+ {title:'Form & Field — Editorial',category:'graphic',meta:'EDITORIAL · GRAPHIC DESIGN',year:'2025',label:'F/F'},
+ {title:'Ground — Brand System',category:'identity',meta:'BRAND IDENTITY · GUIDELINE',year:'2025',label:'GROUND'},
+ {title:'Soven — Fragrance Collection',category:'package',meta:'PACKAGING · ARTWORK',year:'2025',label:'SOVEN'},
+ {title:'Studio Archive — Website',category:'digital',meta:'DIGITAL EXPERIENCE · WEB DESIGN',year:'2025',label:'/ ARCHIVE'}
+];
+const grid = document.getElementById('projects-grid');
+function escapeHTML(v=''){return String(v).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+function renderProjects(items){
+ grid.innerHTML = '';
+ items.forEach(p=>{
+   const card=document.createElement('article');
+   card.className='project'; card.dataset.category=p.category || 'graphic';
+   const visual = p.image_url
+     ? `<div class="project-visual has-image"><img loading="lazy" src="${escapeHTML(p.image_url)}" alt="${escapeHTML(p.title)}"></div>`
+     : `<div class="project-visual"><div class="shape">${escapeHTML(p.label || p.title)}</div></div>`;
+   card.innerHTML=`<a href="#contact" aria-label="${escapeHTML(p.title)} 문의">${visual}<div class="project-info"><div><div class="project-title">${escapeHTML(p.title)}</div><div class="project-meta">${escapeHTML(p.meta || p.category || '')}</div></div><span class="project-year">${escapeHTML(p.year || '')}</span></div></a>`;
+   grid.appendChild(card);
+ });
+ applyFilter(document.querySelector('.filter.active')?.dataset.filter || 'all');
+}
+function applyFilter(f){
+ document.querySelectorAll('.project').forEach(card=>{card.hidden=f!=='all'&&card.dataset.category!==f;});
+}
+document.querySelectorAll('.filter').forEach(btn=>btn.addEventListener('click',()=>{
+ document.querySelectorAll('.filter').forEach(b=>b.classList.remove('active'));btn.classList.add('active');applyFilter(btn.dataset.filter);
+}));
+async function loadProjects(){
+ if(window.HEUNG_SUPABASE_URL && window.HEUNG_SUPABASE_ANON_KEY && window.supabase){
+   try{
+     const client=window.supabase.createClient(window.HEUNG_SUPABASE_URL,window.HEUNG_SUPABASE_ANON_KEY);
+     const {data,error}=await client.from('projects').select('*').order('sort_order',{ascending:true}).order('created_at',{ascending:false});
+     if(error) throw error;
+     if(data && data.length){renderProjects(data);return;}
+   }catch(e){console.warn('Supabase project loading unavailable; showing demo projects.',e.message);}
+ }
+ renderProjects(fallbackProjects);
+}
+loadProjects();
+</script>
+<a class="admin-link" href="admin.html">ADMIN ↗</a>
+</body>
+</html>
