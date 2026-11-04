@@ -27,6 +27,31 @@ footer{padding:30px 0 24px;background:var(--paper)}.footer-top{display:flex;just
 .admin-link { position:fixed; right:16px; bottom:16px; z-index:20; background:#171717; color:#fff; padding:10px 14px; border-radius:999px; font-size:12px; opacity:.78; }
 .admin-link:hover { opacity:1; }
 @media (max-width:600px) { .admin-link { right:10px; bottom:10px; } }
+  /* 흥스튜디오 로고 크기 및 여백 조정 */
+.hero-art .art-right {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.hero-logo {
+  display: block;
+  width: 52%;
+  max-width: 240px;
+  height: auto;
+  object-fit: contain;
+  position: relative;
+  z-index: 1;
+}
+
+.orb-label {
+  position: absolute;
+  right: 6%;
+  bottom: 8%;
+  z-index: 2;
+}
 </style>
 </head>
 <body>
